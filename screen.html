@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض الصورة</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        #imageContainer {
+            width: 100vw; /* عرض كامل الشاشة */
+            height: 100vh; /* ارتفاع كامل الشاشة */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        img {
+            width: 100%; /* عرض الصورة كامل الشاشة */
+            height: 100%; /* ارتفاع الصورة كامل الشاشة */
+            object-fit: contain; /* الحفاظ على نسبة العرض إلى الارتفاع */
+        }
+    </style>
+</head>
+<body>
+    <div id="imageContainer">
+        <!-- سيتم عرض الصورة هنا -->
+    </div>
+
+    <script>
+        window.onload = function() {
+            const savedImage = localStorage.getItem("imageUrl");
+            if (savedImage) {
+                // إنشاء عنصر <img> وعرض الصورة المخزنة
+                const imgElement = document.createElement("img");
+                imgElement.src = savedImage;
+                document.getElementById("imageContainer").appendChild(imgElement);
+            } else {
+                document.getElementById("imageContainer").innerHTML = "<p>لم يتم تحميل صورة بعد.</p>";
+            }
+        };
+    </script>
+</body>
+</html>

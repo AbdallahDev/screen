@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل الصورة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        input[type="file"] {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>اختر صورة لعرضها في الصفحة التالية</h1>
+        <input type="file" id="imageInput" accept="image/*">
+        <button id="viewImageButton" disabled>عرض الصورة في صفحة جديدة</button>
+    </div>
+
+    <script>
+        document.getElementById("imageInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageUrl = e.target.result;
+                    // تخزين رابط الصورة في localStorage
+                    localStorage.setItem("imageUrl", imageUrl);
+                    // تمكين زر "عرض الصورة"
+                    document.getElementById("viewImageButton").disabled = false;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // عند النقر على زر "عرض الصورة"
+        document.getElementById("viewImageButton").addEventListener("click", function() {
+            // الانتقال إلى صفحة العرض
+            window.location.href = "view_image.html";
+        });
+    </script>
+</body>
+</html>
