@@ -35,17 +35,27 @@
     </div>
 
     <script>
-        window.onload = function() {
+        function updateImage() {
             const savedImage = localStorage.getItem("imageUrl");
             if (savedImage) {
-                // إنشاء عنصر <img> وعرض الصورة المخزنة
-                const imgElement = document.createElement("img");
-                imgElement.src = savedImage;
-                document.getElementById("imageContainer").appendChild(imgElement);
+                // تحقق مما إذا كانت الصورة قد تم تحديثها
+                const imageContainer = document.getElementById("imageContainer");
+                // إذا كان هناك صورة جديدة، أضفها إلى الصفحة
+                if (!imageContainer.querySelector("img") || imageContainer.querySelector("img").src !== savedImage) {
+                    // إزالة الصورة القديمة إذا كانت موجودة
+                    imageContainer.innerHTML = "";
+                    // إنشاء عنصر <img> وعرض الصورة المخزنة
+                    const imgElement = document.createElement("img");
+                    imgElement.src = savedImage;
+                    imageContainer.appendChild(imgElement);
+                }
             } else {
                 document.getElementById("imageContainer").innerHTML = "<p>لم يتم تحميل صورة بعد.</p>";
             }
-        };
+        }
+
+        // تحديث الصورة كل 500 ميللي ثانية
+        setInterval(updateImage, 500);
     </script>
 </body>
 </html>
